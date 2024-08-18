@@ -64,7 +64,30 @@ class Database:
             self.connection.rollback()
             raise HTTPException(status_code=500, detail=f"Error al registrar el usuario: {e.pgerror}")
 
+
+    def obtener_usuarios(self):
+        try:
+            cur = self.connection.cursor()
+
+            # Llamada al procedimiento almacenado para registrar al usuario
+            cur.execute('SELECT obtener_usuarios()')
+            
+            # Obtener el resultado, por ejemplo, el ID del usuario registrado
+            data = cur.fetchall()
+                        
+            self.connection.commit()
+            cur.close()
+
+            if data != None:
+                return data
+            else:
+                return "No se ha podido obtener los datos"
+
+        except psycopg2.Error as e:
+            self.connection.rollback()
+            raise HTTPException(status_code=500, detail=f"Error al registrar obtener los usuarios: {e.pgerror}")
     
+
     def eliminar_usuario_por_id(self, user_id: UserId):
         try:
             status = 0

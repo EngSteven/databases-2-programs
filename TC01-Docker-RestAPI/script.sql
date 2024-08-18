@@ -27,9 +27,6 @@ $$;
 
 
 
-
-
-
 CREATE OR REPLACE FUNCTION public.registrar_usuario(IN _username TEXT, IN _password TEXT, IN _role TEXT)
 RETURNS INTEGER
 LANGUAGE 'plpgsql'
@@ -55,7 +52,19 @@ END;
 $$;
 
 
+CREATE OR REPLACE FUNCTION public.obtener_usuarios()
+	RETURNS TABLE(
+        id integer,
+        username text,
+        role text
+    )
+	LANGUAGE 'plpgsql'
+AS $$
 
+BEGIN
+	RETURN QUERY SELECT users.id, users.username, users.role FROM users;
+END;
+$$;
 
 
 CREATE OR REPLACE FUNCTION public.eliminar_usuario_por_id(

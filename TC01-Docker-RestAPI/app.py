@@ -23,26 +23,32 @@ async def reg_user(user: CrearUsuario):
     print(res)
     return res
 
+@app.get("/read")
+async def get_users():
+    res = db.obtener_usuarios()
+    print(res)
+    return res
+
 @app.delete("/delete")
-async def elim_user(username: UserName):
+async def del_user(username: UserName):
     res = db.eliminar_usuario(username)
     print(res)
     return res
 
 @app.put("/update")
-async def actu_user(user: CrearUsuario):
+async def upd_user(user: CrearUsuario):
     res = db.actualizar_usuario(user)
     print(res)
     return res
 
 @app.delete("/id/delete")
-async def elim_user_por_id(user_id: UserId):
+async def del_user_por_id(user_id: UserId):
     res = db.eliminar_usuario_por_id(user_id)
     print(res)
     return res
 
 @app.put("/id/update")
-async def actu_user_por_id(user: User):
+async def upd_user_por_id(user: User):
     res = db.actualizar_usuario_por_id(user)
     print(res)
     return res
