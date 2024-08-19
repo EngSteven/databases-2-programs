@@ -26,6 +26,11 @@ Este proyecto es una sistema para la gestión y autenticación de usuarios, así
 docker-compose up --build
 ```
 
+## Ejecutar el módulo de pruebas unitarias
+``` bash
+
+```
+
 # Endpoints usando Postman
 
 ## Inicio de sesión
@@ -94,12 +99,6 @@ localhost:8000/id/update
 ```
 
 ## Escritura de posts
-``` bash
-
-```
-
-
-## Ejecutar el módulo de pruebas unitarias
 ``` bash
 
 ```
