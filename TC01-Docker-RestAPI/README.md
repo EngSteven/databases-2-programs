@@ -27,8 +27,13 @@ docker-compose up --build
 ```
 
 ## Ejecutar el módulo de pruebas unitarias
+### Primero corra el contenedor en segundo plano
 ``` bash
-
+docker-compose up -d
+```
+### Luego ejecute el siguiente comando
+``` bash
+docker compose exec webapp poetry run python -m unittest test-api -v
 ```
 
 # Endpoints usando Postman
