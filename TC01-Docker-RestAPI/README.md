@@ -74,8 +74,21 @@ Se selecciona un método GET.
 localhost:8000/read
 ```
 
-## Eliminar usuario
-Se selecciona un método DELETE y se ingresa en un body de tipo raw el id de usuario.
+## Eliminar un usuario mediante el nombre de usuario
+Se selecciona un método DELETE y se ingresa en un body de tipo raw el nombre de usuario.
+### Request
+``` bash
+localhost:8000/delete
+```
+### Body de ejemplo
+``` bash
+{
+    "username": "steven"
+}
+```
+
+## Eliminar un usuario mediante el id del usuario
+Se selecciona un método DELETE y se ingresa en un body de tipo raw el id.
 ### Request
 ``` bash
 localhost:8000/id/delete
@@ -87,7 +100,7 @@ localhost:8000/id/delete
 }
 ```
 
-## Actualizar usuario
+## Actualizar usuario mediante id
 Se selecciona un método PUT y se ingresa en un body de tipo raw el id de usuario, el nombre de usuario, la contraseña y el role.
 ### Request
 ``` bash
@@ -102,6 +115,22 @@ localhost:8000/id/update
     "role": "editor"
 }
 ```
+
+## Actualizar usuario mediante username
+Se selecciona un método PUT y se ingresa en un body de tipo raw el nombre de usuario, la contraseña y el role.
+### Request
+``` bash
+localhost:8000/update
+```
+### Body de ejemplo
+``` bash
+{
+    "username": "alex27",
+    "password": "holamundo",
+    "role": "editor"
+}
+```
+
 
 ## Escritura de posts
 ``` bash
