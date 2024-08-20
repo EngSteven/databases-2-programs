@@ -87,6 +87,20 @@ class Database:
             self.connection.rollback()
             raise HTTPException(status_code=500, detail=f"Error al registrar obtener los usuarios: {e.pgerror}")
     
+    def obtener_usuario(self, username: str):
+        cur = self.connection.cursor()
+        # Supongamos que tienes una tabla llamada 'usuarios'
+        cur.execute("SELECT username, password, role FROM users WHERE username = %s", (username,))
+        user = cur.fetchone()
+        cur.close()
+
+        if user:
+            return {
+                "username": user[0],
+                "password": user[1],  # La contraseña hasheada
+                "role": user[2]
+            }
+        return None
 
     def eliminar_usuario_por_id(self, user_id: UserId):
         try:

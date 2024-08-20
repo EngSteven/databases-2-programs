@@ -11,6 +11,10 @@ class CrearUsuario(BaseModel):
     password: str
     role: Roles
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
 class UserId(BaseModel):
     id: int
 
