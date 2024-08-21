@@ -1,6 +1,6 @@
 import psycopg2
 import os
-from fastapi import HTTPException
+from fastapi import *
 #from passlib.context import CryptContext
 from models.schemas import *
 
@@ -181,8 +181,31 @@ class Database:
                 
         except psycopg2.Error as e:
             self.connection.rollback()
-            raise HTTPException(status_code=500, detail=f"Error al actualizar el usuario: {e.pgerror}")
+            raise HTTPException(status_code=500, detail=f"Error al actualizar el usuario: {e.pgerror}")       
         
     
+    def save_file(self, file: UploadFile):
+        try:
+            cur = self.connection.cursor()
+
+            # Leer el contenido del archivo
+            file_content = file.file.read()
+
+            # Insertar el archivo en la base de datos
+            cur.execute("""
+                INSERT INTO files (filename, file_type, file_data)
+                VALUES (%s, %s, %s)
+            """, (file.filename, file.content_type, psycopg2.Binary(file_content)))
+
+            self.connection.commit()
+            cur.close()
+            return "Archivo guardado exitosamente"
+
+        except psycopg2.Error as e:
+            self.connection.rollback()
+            raise HTTPException(status_code=500, detail=f"Error al guardar el archivo: {e.pgerror}")
+
+        finally:
+            file.file.close()  # Cerrar el archivo después de leerlo
         
     

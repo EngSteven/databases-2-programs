@@ -1,10 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL,
-    role TEXT NOT NULL
-)
-
+\c database
 
 CREATE OR REPLACE PROCEDURE usuario_existe(IN _username TEXT, OUT _exists BOOLEAN)
 LANGUAGE plpgsql
@@ -88,17 +82,6 @@ BEGIN
 END;
 $$;
 
-
-CREATE OR REPLACE PROCEDURE registrar_usuario(IN _username TEXT, IN _password TEXT, IN _role TEXT, OUT _user_id INTEGER)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    INSERT INTO users (username, password, role)
-    VALUES (_username, _password, _role)
-    RETURNING id INTO _user_id;
-END;
-$$;
-
 CREATE OR REPLACE FUNCTION public.eliminar_usuario(
     IN _username TEXT
 )
@@ -158,9 +141,6 @@ BEGIN
 END;
 $$;
 
-
-
-
 CREATE OR REPLACE FUNCTION public.actualizar_usuario(
     IN _username TEXT, 
 	IN _password TEXT, 
@@ -213,12 +193,3 @@ BEGIN
 	END IF;
 END;
 $$;
-
-CREATE TABLE TABLE IF NOT EXISTS files (
-    id SERIAL PRIMARY KEY,
-    filename VARCHAR(255) NOT NULL,
-    file_type VARCHAR(50) NOT NULL,
-    file_data BYTEA NOT NULL
-);
-
-

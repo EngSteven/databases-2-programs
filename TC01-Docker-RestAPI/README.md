@@ -39,18 +39,13 @@ docker compose exec webapp poetry run python -m unittest test-api -v
 # Endpoints usando Postman
 
 ## Inicio de sesión
-Se selecciona un método POST y se ingresa en un body de tipo raw el nombre de usuario y la contraseña.
+Se selecciona un método POST y se ingresa en un body de tipo x-www-form-urlencoded, con una key username y otra key password
 ### Request
 ``` bash
 localhost:8000/login
 ```
-### Body de ejemplo
-``` bash
-{
-    "username": "juanpa05",
-    "password": "1234"
-}
-```
+### Ejemplo
+<img src="login-example.png"/>
 
 ## Registrar usuario
 Se selecciona un método POST y se ingresa en un body de tipo raw el nombre de usuario, la contraseña, y el rol.
@@ -131,8 +126,14 @@ localhost:8000/update
 }
 ```
 
-
 ## Escritura de posts
-``` bash
+Se selecciona un método POST y se ingresa en un body de tipo form-data, con una key file, de tipo File y se carga en el Value el archivo (texto, imágen o video) requerido desde su máquina. 
 
+Ese archivo debe estar en su Postman/files, normalmente ubicado en: C:\Users\username\Postman\files
+
+### Request
+``` bash
+localhost:8000/posts
 ```
+### Ejemplo
+<img src="posts-example.png"/>

@@ -2,6 +2,15 @@ import unittest
 from fastapi.testclient import TestClient
 from app import app 
 
+
+"""
+PRUEBAS UNITARIAS
+    - Hacer pruebas que prueben que el password sea valido
+
+
+"""
+
+
 # Crear un cliente de prueba para la API
 client = TestClient(app)
 new_user = {
@@ -32,7 +41,7 @@ login_invalid_user = {
 print("\nPruebas\n")
 
 class TestAPI(unittest.TestCase):   
-
+  
     def test01_register_nonexisting_user(self):
         response = client.post("/register", json=new_user)
         self.assertEqual(response.status_code, 200)

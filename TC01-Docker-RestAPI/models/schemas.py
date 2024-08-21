@@ -30,3 +30,11 @@ class User(BaseModel):
 class Login(BaseModel):
     username: str
     password: str
+
+class UploadFile2(BaseModel):
+    filename: str
+    content: bytes  # El contenido del archivo se manejará como bytes
+    file_type: str
+
+    class Config:
+        orm_mode = True
