@@ -22,15 +22,6 @@ ALGORITHM = "HS256"
 @app.get("/")
 async def ver_version():
     return {"version": "0.0.1"}
-"""
-@app.post("/login")
-async def login(login: Login):
-
-    res = db.login(login)
-    print(res)
-    return res
-
-"""
 
 @app.post("/login")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
@@ -100,48 +91,6 @@ async def upload_file(file: UploadFile = File(...), db: Database = Depends()):
     result = db.save_file(file)
     return {"message": result}
 
-"""@app.post("/posts")
-async def upload_file(file: UploadFile = File(...)):
-    try:
-        # Obtén el tipo de contenido del archivo
-        content_type = file.content_type
-        
-        # Procesamiento según el tipo de archivo
-        if content_type.startswith('image/'):
-            # Procesar imagen
-            image = Image.open(io.BytesIO(await file.read()))
-            return {"filename": file.filename, "type": "image", "format": image.format, "size": image.size}
-        
-        elif content_type.startswith('video/'):
-            # Procesar video (por ejemplo, podrías guardar el video)
-            video_bytes = await file.read()
-            # Puedes agregar más lógica de procesamiento si es necesario
-
-            return {"filename": file.filename, "type": "video", "size": len(video_bytes)}
-
-        elif content_type.startswith('text/'):
-            # Procesar archivo de texto
-            text = (await file.read()).decode("utf-8")
-            #result = db.save_file(file)
-            return {"filename": file.filename, "type": "text", "content": text}
-
-        else:
-            raise HTTPException(status_code=400, detail="Unsupported file type")
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")"""
-    
-
-"""@app.post("/posts")
-async def upload_file(file: UploadFile = File(...)):
-    content = await file.read()
-    file_data = UploadFile(
-        filename=file.filename,
-        content=content,
-        file_type=file.content_type
-    )
-    result = db.save_file(file_data)
-    return JSONResponse(content=result)"""
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")

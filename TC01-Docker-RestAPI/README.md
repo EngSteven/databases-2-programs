@@ -2,7 +2,13 @@
 
 # Gestor de Tareas con Flask y PostgreSQL
 
-Este proyecto es una sistema para la gestión y autenticación de usuarios, así como para la publicación de diferentes tipos de posts.
+Este proyecto es una sistema rest-api para la gestión y autenticación de usuarios, así como para la publicación de diferentes tipos de posts.
+
+## Enlace a la documentación de la API 
+[Click here](https://documenter.getpostman.com/view/37666062/2sAXjDdudZ)
+
+## Enlace al video demostrativo 
+[Click here](https://www.youtube.com/watch?v=gfoVkxXpHGE)
 
 ## Funcionalidades principales 
 

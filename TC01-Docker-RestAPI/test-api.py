@@ -3,13 +3,6 @@ from fastapi.testclient import TestClient
 from app import app 
 
 
-"""
-PRUEBAS UNITARIAS
-    - Hacer pruebas que prueben que el password sea valido
-
-
-"""
-
 
 # Crear un cliente de prueba para la API
 client = TestClient(app)
