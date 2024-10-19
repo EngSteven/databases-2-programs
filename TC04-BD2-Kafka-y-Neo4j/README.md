@@ -24,3 +24,6 @@ Desde una terminal que este al mismo nivel que el proyecto ejecute:
 ``` bash
 python consumer.py
 ```
+
+### 4. Llamar a las consultas de prueba
+Desde el archivo <test.ipynb> ejecute cada uno de las pruebas. 
