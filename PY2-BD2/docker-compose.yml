@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j-container
+    environment:
+      - NEO4J_AUTH=neo4j/12345678  # configura usuario y contraseña
+    ports:
+      - "7474:7474"  # puerto para la interfaz web
+      - "7687:7687"  # puerto para la conexión de la base de datos
+    volumes:
+      - neo4j_data:/data  # almacena los datos de Neo4J
+      - neo4j_logs:/logs  # almacena los logs de Neo4J
+      - neo4j_import:/import  # permite importar archivos
+      - neo4j_plugins:/plugins  # plugins adicionales 
+    networks:
+      - default
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/:/docker-entrypoint-initdb.d/
+    networks:
+      - default
+    
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: test@estudiantec.cr
+      PGADMIN_DEFAULT_PASSWORD: test 
+    ports:
+      - 5050:80
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:
+  postgres_data:
