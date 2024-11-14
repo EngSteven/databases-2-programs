@@ -38,7 +38,11 @@ def load_data_to_neo4j(graph, file_path):
     UNWIND $transactions AS t
     MERGE (c:Customer {customer_id: t.customer_id})
     MERGE (p:Product {product_id: t.product_id})
-    CREATE (c)-[:PURCHASED {list_price: t.list_price, transaction_date: t.transaction_date}]->(p)
+    CREATE (c)-[:PURCHASED {transaction_amount: t.list_price, transaction_date: t.transaction_date}]->(p)
     """
 
     graph.run(query, transactions=transactions)
+
+def main(file_path):
+    graph = connect_to_neo4j()
+    load_data_to_neo4j(graph, file_path)
