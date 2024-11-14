@@ -2,7 +2,9 @@ from pyspark.sql import SparkSession
 def  create_spark_session():  
     spark = SparkSession.builder \
         .appName("Neo4J_Spark_Project") \
-        .config("spark.jars.packages", "org.neo4j:neo4j-connector-apache-spark_2.12:5.3.2_for_spark_3") \
+        .config("spark.jars.packages", 
+                "org.neo4j:neo4j-connector-apache-spark_2.12:5.3.2_for_spark_3,"
+                "org.postgresql:postgresql:42.5.0") \
         .config("neo4j.url", "neo4j://localhost:7687") \
         .config("neo4j.authentication.basic.username", "neo4j") \
         .config("neo4j.authentication.basic.password", "12345678") \
@@ -49,7 +51,7 @@ def calculate_transaction_count(transactions_df):
         .count() \
         .withColumnRenamed("count", "transaction_count")
 
-def save_to_postgresql(df, table_name, url="jdbc:postgresql://localhost:5432/db", user="user", password="password"):
+def save_to_postgresql(df, table_name, url="jdbc:postgresql://localhost:5432/database", user="user", password="password"):
     """
     Guarda un DataFrame en una tabla de PostgreSQL.
     """
@@ -59,6 +61,7 @@ def save_to_postgresql(df, table_name, url="jdbc:postgresql://localhost:5432/db"
         .option("dbtable", table_name) \
         .option("user", user) \
         .option("password", password) \
+        .option("driver", "org.postgresql.Driver") \
         .save()
 
 def main():
@@ -92,7 +95,7 @@ def main():
     transaction_count_per_customer.show()
 
     # guardar resultados en PostgreSQL
-    save_to_postgresql(total_spent_per_customer, "Total_Spent_Per_Customer")
-    save_to_postgresql(product_purchase_count, "Product_Purchase_Count")
-    save_to_postgresql(average_spent_per_customer, "Average_Spend_Per_Customer")
-    save_to_postgresql(transaction_count_per_customer, "Transaction_Count_Per_Customer")
+    save_to_postgresql(total_spent_per_customer, "total_spent_per_customer")
+    save_to_postgresql(product_purchase_count, "product_purchase_count")
+    save_to_postgresql(average_spent_per_customer, "average_spent_per_customer")
+    save_to_postgresql(transaction_count_per_customer, "transaction_count_per_customer")
