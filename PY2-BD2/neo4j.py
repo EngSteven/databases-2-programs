@@ -1,7 +1,12 @@
 import pandas as pd
 from py2neo import Graph
 
-def connect_to_neo4j(uri="bolt:#localhost:7687", user="neo4j", password="12345678"):
+# Constantes para la configuración y credenciales
+NEO4J_URI = "bolt://localhost:7687"
+NEO4J_USER = "neo4j"
+NEO4J_PASSWORD = "12345678"
+
+def connect_to_neo4j(uri=NEO4J_URI, user=NEO4J_USER, password=NEO4J_PASSWORD):
     """
     Establece la conexión con la base de datos Neo4J.
     """

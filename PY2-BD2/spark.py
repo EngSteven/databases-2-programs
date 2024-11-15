@@ -1,13 +1,22 @@
 from pyspark.sql import SparkSession
-def  create_spark_session():  
+
+# Constantes para configuraciones y credenciales
+NEO4J_URL = "neo4j://localhost:7687"
+NEO4J_USERNAME = "neo4j"
+NEO4J_PASSWORD = "12345678"
+POSTGRESQL_URL = "jdbc:postgresql://localhost:5432/database"
+POSTGRESQL_USER = "user"
+POSTGRESQL_PASSWORD = "password"
+
+def create_spark_session():  
     spark = SparkSession.builder \
         .appName("Neo4J_Spark_Project") \
         .config("spark.jars.packages", 
-                "org.neo4j:neo4j-connector-apache-spark_2.12:5.3.2_for_spark_3,"
+                "org.neo4j:neo4j-connector-apache-spark_2.12:5.3.2_for_spark_3," 
                 "org.postgresql:postgresql:42.5.0") \
-        .config("neo4j.url", "neo4j://localhost:7687") \
-        .config("neo4j.authentication.basic.username", "neo4j") \
-        .config("neo4j.authentication.basic.password", "12345678") \
+        .config("neo4j.url", NEO4J_URL) \
+        .config("neo4j.authentication.basic.username", NEO4J_USERNAME) \
+        .config("neo4j.authentication.basic.password", NEO4J_PASSWORD) \
         .getOrCreate()
     return spark
 
@@ -51,7 +60,7 @@ def calculate_transaction_count(transactions_df):
         .count() \
         .withColumnRenamed("count", "transaction_count")
 
-def save_to_postgresql(df, table_name, url="jdbc:postgresql://localhost:5432/database", user="user", password="password"):
+def save_to_postgresql(df, table_name, url=POSTGRESQL_URL, user=POSTGRESQL_USER, password=POSTGRESQL_PASSWORD):
     """
     Guarda un DataFrame en una tabla de PostgreSQL.
     """
