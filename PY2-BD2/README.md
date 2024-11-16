@@ -173,3 +173,6 @@ df.write \
 
 ## Visualización de resultados 
 
+![alt text](images/graphics/total_spend.png)
+![alt text](images/graphics/purchase_count.png)
+![alt text](images/graphics/average_spend.png)
